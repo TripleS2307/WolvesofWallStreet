@@ -1,0 +1,4 @@
+pip install lxml
+pip install python-dateutil
+pip install requests
+pip install cssselect
