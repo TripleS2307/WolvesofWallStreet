@@ -2,7 +2,12 @@ var express = require("express");
 var router = express.Router();
 
 router.get("/:query", function(req, res, next) {
-	//res.send(req.params["query"]);
+	
+	console.log(req.params["query"]); // the user's query
+	
+	var documents = req.app.get('documents'); // index will be the object that
+	console.log(documents);
+	
 	var data = {
 		"sentiment": 10.5,
 		"results": [
@@ -26,7 +31,7 @@ router.get("/:query", function(req, res, next) {
 		  }
 		]
 	}
-	res.json(data);
+	res.json(data); // send JSON to React front end
 });
 
 module.exports = router;
