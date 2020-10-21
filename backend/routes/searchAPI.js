@@ -3,34 +3,58 @@ var router = express.Router();
 
 router.get("/:query", function(req, res, next) {
 	
-	console.log(req.params["query"]); // the user's query
+	let documents = req.app.get('documents');
+	let timestamp = req.app.get('timestamp');
 	
-	var documents = req.app.get('documents'); // index will be the object that
-	console.log(documents);
+	var resultCount = 10; // number of results to return
 	
-	var data = {
-		"sentiment": 10.5,
-		"results": [
-		  {
-			"url": "http://marketwatch.com",
-			"title": "Market Watch",
-			"body": "Some stuff about Market Watch",
-			"sentiment": -2
-		  },
-		  {
-			"url": "http://finance.yahoo.com",
-			"title": "Yahoo! Finanace",
-			"body": "Some stuff about yahoo finance",
-			"sentiment": 20
-		  },
-		  {
-			"url": "http://stocknews.com",
-			"title": "StockNews.com",
-			"body": "Some stuff about stock news",
-			"sentiment": 1.5
-		  }
-		]
+	var lambda = 0.1; // this is a parameter of BM25 that we can tweak
+	
+	// split the query into terms
+	let queryTerms = req.params["query"].toLowerCase().split(/[^a-zA-Z]+/);
+	
+	let resultsList = [];
+	
+	// loop through each document and calculate a score
+	for(d in documents){
+		let score = 0;
+		
+		// sum up the score for each query term
+		for(queryTerm of queryTerms){
+			if(documents[d]["terms"].hasOwnProperty(queryTerm)){
+				score += documents[d]["terms"][queryTerm];
+			}
+		}
+		
+		// add the timestamp feature
+		let daysOld = (timestamp - documents[d]["published"]) / 86400;
+		score += lambda * (2 + Math.log(5 / daysOld));
+		
+		// store the document id and the score in an array
+		resultsList.push({"id": d, "score": score});
 	}
+	
+	//sort the list of results in descending order
+	resultsList = resultsList.sort(function (a, b) {
+		return b.score - a.score;
+	});
+	
+	// start building the object that will be returned to front end
+	var data = {
+		"sentiment": 10.5, // TODO: change this to actual sentiment score
+		"results": []
+	}
+
+	// add the top n results to the returned object
+	for(let i = 0; i < resultCount; i++){
+		data["results"].push({
+			"url": documents[resultsList[i]["id"]]["url"],
+			"title": documents[resultsList[i]["id"]]["headline"],
+			"body": documents[resultsList[i]["id"]]["body"],
+			"sentiment": resultsList[i]["score"] // TODO: change this to actual sentiment score
+		});
+	}
+
 	res.json(data); // send JSON to React front end
 });
 

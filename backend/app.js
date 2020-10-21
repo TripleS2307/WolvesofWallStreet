@@ -14,6 +14,7 @@ var app = express();
 
 var documents = indexer.index();
 app.set('documents', documents);
+app.set('timestamp', 1602280221); // this is when the documents were scrapped from the web, so our system runs as if this is the current date/time
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
