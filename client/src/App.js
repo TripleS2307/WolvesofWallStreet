@@ -14,7 +14,7 @@ function App() {
 	const search = () => {
 		fetch("http://localhost:9000/search/"+query)
 			.then(res => res.json())
-			//.then(data => alert(data["sentiment"]))
+			//.then(data => alert(data["stocks"]))
 			.then(data => setResults(data))
 			.catch(err => err);
 	}
@@ -38,7 +38,10 @@ function App() {
 		 </form>
 		 {(() => {
 			 if(results){
-				 return <div>Sentiment: {results.sentiment} </div>;
+				 return results.stocks.map((stock) =>
+					<div>{stock.symbol} sentiment: {stock.sentiment}</div>
+				 );
+				 
 			 }
 		 })()}
 		 {(() => {

@@ -1,4 +1,5 @@
 var express = require("express");
+var Sentiment = require('sentiment');
 var router = express.Router();
 
 router.get("/:query", function(req, res, next) {
@@ -42,11 +43,26 @@ router.get("/:query", function(req, res, next) {
 	// start building the object that will be returned to front end
 	var data = {
 		"sentiment": 10.5, // TODO: change this to actual sentiment score
+		"stocks": [],
 		"results": []
 	}
 
+	var sentiment = new Sentiment();
+
 	// add the top n results to the returned object
 	for(let i = 0; i < resultCount; i++){
+		for(term in documents[resultsList[i]["id"]]["terms"]){
+			// find stock symbols by looking for upper case words (only stock symbols are uppercase)
+			if(term[0] == term[0].toUpperCase()){
+				if(!data["stocks"].some(el => el.symbol === term)){
+					data["stocks"].push({"symbol": term, "sentiment": 0});
+				}
+				
+				// update stock with sentiment score from this document
+				let index = data["stocks"].findIndex(el => el["symbol"] == term);
+				data["stocks"][index] = {...data["stocks"][index], "sentiment": data["stocks"][index]["sentiment"] + sentiment.analyze(documents[resultsList[i]["id"]]["body"])["comparative"]};
+			}
+		}
 		data["results"].push({
 			"url": documents[resultsList[i]["id"]]["url"],
 			"title": documents[resultsList[i]["id"]]["headline"],
@@ -54,6 +70,7 @@ router.get("/:query", function(req, res, next) {
 			"sentiment": resultsList[i]["score"] // TODO: change this to actual sentiment score
 		});
 	}
+	console.log(data["stocks"]);
 
 	res.json(data); // send JSON to React front end
 });
