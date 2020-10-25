@@ -20,6 +20,8 @@ module.exports = {
 		
 		var K1 = 2.0;
 		
+		var stock_multiplier = 5.0; // stock symbol term weight is multiplied by this value
+		
 		
 		filenames = fs.readdirSync("../data");
 		var i = 0;
@@ -71,6 +73,14 @@ module.exports = {
 			}
 		}
 		
+		// get a set of all stock symbols
+		var stock_symbols = new Set();
+		fs.readFileSync('../data/stock_symbols.txt', 'utf-8').split(/\r?\n/).forEach(function(line) {
+			if(line != ""){
+				stock_symbols.add(line);
+			}
+		});
+		
 		
 		// loop through all the documents the first time to create postings list and get average body and title length
 		for(i in files){
@@ -91,7 +101,13 @@ module.exports = {
 			
 			
 			// split the body into words (splitting on anything other than a letter)
-			let bodyWords = files[i]['body'].toLowerCase().split(/[^a-zA-Z]+/);
+			let bodyWords = files[i]['body'].split(/[^a-zA-Z]+/);
+			
+			// lowercase the words that aren't stock symbols
+			for(j in bodyWords){
+				if(!stock_symbols.has(bodyWords[j]))
+					bodyWords[j] = bodyWords[j].toLowerCase();
+			}
 			
 			// loop through each word and add the document to the postings list for that word
 			for(j in bodyWords){
@@ -128,12 +144,20 @@ module.exports = {
 					termFreq_title[titleWords[j]] += 1;
 				}else{
 					termFreq_title[titleWords[j]] = 1;
-					terms[titleWords[j]] = 0;
+					if(titleWords[j] != ""){
+						terms[titleWords[j]] = 0;
+					}
 				}
 			}
 			
 			// split the body into words (splitting on anything other than a letter)
-			let bodyWords = files[i]['body'].toLowerCase().split(/[^a-zA-Z]+/);
+			let bodyWords = files[i]['body'].split(/[^a-zA-Z]+/);
+			
+			// lowercase the words that aren't stock symbols
+			for(j in bodyWords){
+				if(!stock_symbols.has(bodyWords[j]))
+					bodyWords[j] = bodyWords[j].toLowerCase();
+			}
 			
 			let termFreq_body = {};
 			let bodySize = bodyWords.length;
@@ -144,7 +168,7 @@ module.exports = {
 					termFreq_body[bodyWords[j]] += 1;
 				}else{
 					termFreq_body[bodyWords[j]] = 1;
-					if(!terms.hasOwnProperty(bodyWords[j])){
+					if(bodyWords[j] != "" && !terms.hasOwnProperty(bodyWords[j])){
 						terms[bodyWords[j]] = 0;
 					}
 				}
@@ -167,7 +191,14 @@ module.exports = {
 				if(idf == 0){
 					console.log("everyone has: " + term);
 				}
-				terms[term] = (W_dt / (K1 + W_dt)) * idf;
+				
+				// if the term is a stock symbol then multiply by the stock multiplier
+				if(stock_symbols.has(term)){
+					terms[term] = (W_dt / (K1 + W_dt)) * idf * stock_multiplier;
+				}else{
+					terms[term] = (W_dt / (K1 + W_dt)) * idf;
+				}
+				
 			}
 			
 			try{
