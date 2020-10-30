@@ -31,31 +31,36 @@ function App() {
 		}
 	}, []);
 	
-	return (
-		<div>
-		 <form onSubmit={handleQuery}>
-		  <input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} />
-		 </form>
+	return (<div>
 		 {(() => {
 			 if(results){
-				 return results.stocks.map((stock) =>
-					<div>{stock.symbol} sentiment: {stock.sentiment}</div>
-				 );
+				 return (<div id="white-bg"><div id="results-header">
+						<div id="header-logo">logo</div>
+						<div id="header-search-bar"><form onSubmit={handleQuery}><input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} /></form></div>
+						</div><br /><br /><div id="stock-box">
+					 {results.stocks.map((stock) =>
+						<div class={(stock.sentiment > 0) ? "stock-good" : "stock-bad"}><a href={"https://finance.yahoo.com/quote/" + stock.symbol} target="_blank">{stock.symbol}</a> {(stock.sentiment > 0) ? "good" : "bad"}</div>
+					 )}
+					 </div><div class="search-results"><div class="search-results-header">Search Results</div>
+					 {results.results.map((result) =>
+						<div class="search-result">
+						 <div class="result-url">{result.url}</div>
+						 <div class="result-link"><a href={result.url} target='_blank'>{result.title}</a></div>
+						 <div class="result-sentiment">({result.sentiment})</div>
+						 <div class="result-body">{result.body.substring(0,200)}...</div>
+						</div>
+					 )}
+					 </div><br /><br /></div>);
 				 
+			 }else{
+				 return <form onSubmit={handleQuery}>
+						<div class="center">
+						<div id="search-bar"><span><input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} /></span></div>
+						</div></form>
 			 }
 		 })()}
-		 {(() => {
-			 if(results){
-				 return results.results.map((result) =>
-					<div>
-					 <a href={result.url} target='_blank'>{result.title}</a> ({result.sentiment})
-					 <div>{result.body}</div>
-					</div>
-				 );
-			 }
-		 })()}
-		</div>
-	);
+		 <br /><br />
+		 </div>);
 }
 
 export default App;
