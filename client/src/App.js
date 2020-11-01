@@ -35,7 +35,7 @@ function App() {
 		 {(() => {
 			 if(results){
 				 return (<div id="white-bg"><div id="results-header">
-						<div id="header-logo">logo</div>
+						<div id="header-logo"><a href="/"><img src="wow-logo-sm.png" /></a></div>
 						<div id="header-search-bar"><form onSubmit={handleQuery}><input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} /></form></div>
 						</div><br /><br /><div id="stock-box">
 					 {results.stocks.map((stock) =>
@@ -54,6 +54,7 @@ function App() {
 				 
 			 }else{
 				 return <form onSubmit={handleQuery}>
+						<div class="logo"><img src="wow-logo.png" /></div>
 						<div class="center">
 						<div id="search-bar"><span><input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} /></span></div>
 						</div></form>
