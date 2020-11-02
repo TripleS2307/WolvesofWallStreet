@@ -32,12 +32,24 @@ body{
 	display: flex;
 }
 
-#search-bar input{
+#search-bar input.query{
 	font-size: 16px;
 	width: 500px;
 	border-radius: 10px;
 	padding: 5px;
 	border: 1px solid #c0c0cf;
+}
+
+#search-bar input.submit{
+	box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.2),
+    -3px -3px 6px 0 rgba(255, 255, 255, 0.5);
+	font-weight: bold;
+	cursor: pointer;
+	color: rgba(0,0,0,0.4);
+	background: rgba(255,255,255,0.5);
+	border-radius: 20px;
+	padding: 5px;
+	border: 1px solid rgba(0,0,0,0.1);
 }
 
 #results-header{
