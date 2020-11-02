@@ -56,7 +56,7 @@ function App() {
 				 return <form onSubmit={handleQuery}>
 						<div class="logo"><img src="wow-logo.png" /></div>
 						<div class="center">
-						<div id="search-bar"><span><input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} /></span></div>
+						<div id="search-bar"><span><input type="text" class="query" name="s" value={query} onChange={e => setQuery(e.target.value)} /> &nbsp; <input type="submit" class="submit" value="GO" /></span></div>
 						</div></form>
 			 }
 		 })()}
