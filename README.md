@@ -4,9 +4,8 @@ WolvesofWallStreet is a web application that would help people decide if they wa
 Before downloading the project, make sure you have the latest version of [Node.js](https://nodejs.org/en/download/) installed on your machine. 
 
 After downloading the project, complete the following steps to install the **necessary node dependencies** on your machine.
-- Navigate to the **backend** directory and run **npm install**
+- In a command terminal, navigate to the main directory and run **npm install**
     ```sh
-    $ cd backend
     $ npm install
     ```
 - Navigate to the **client** directory and run **npm install**
@@ -15,16 +14,10 @@ After downloading the project, complete the following steps to install the **nec
     $ npm install
     ```
 
-To run the project (for now), complete the following steps:
-- Open up **two terminals** to run the **backend** and **frontend** of the project respectively
-- Using the **first terminal**, navigate to the **backend** directory and run **npm start** 
+To run the project, complete the following steps:
+- Return to the main directory if you're not already there and run this command:
     ```sh
-    $ cd backend
-    $ npm start
+    $ npm run dev
     ```
-- Using the **second terminal**, navigate to the **client** directory and run **npm start**
-    ```sh
-    $ cd client
-    $ npm start
-    ```
+
 Navigate to http://localhost:3000/
