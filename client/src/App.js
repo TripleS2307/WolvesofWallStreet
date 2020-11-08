@@ -12,7 +12,7 @@ function App() {
 	const [results, setResults] = useState( null );
 	
 	const search = () => {
-		fetch("http://localhost:9000/search/"+query)
+		fetch("search/"+query)
 			.then(res => res.json())
 			//.then(data => alert(data["stocks"]))
 			.then(data => setResults(data))
@@ -20,7 +20,7 @@ function App() {
 	}
 	
 	const handleQuery = (e) => {
-	//	alert(query);
+		//alert(query);
 	}
 	
 	
