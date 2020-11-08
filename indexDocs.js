@@ -23,14 +23,14 @@ module.exports = {
 		var stock_multiplier = 5.0; // stock symbol term weight is multiplied by this value
 		
 		
-		filenames = fs.readdirSync("../data");
+		filenames = fs.readdirSync("./data");
 		var i = 0;
 		while(i < filenames.length){
 
 			// if is directory then get all files in subdirectory too
-			if(fs.lstatSync("../data/" + filenames[i]).isDirectory()){
+			if(fs.lstatSync("./data/" + filenames[i]).isDirectory()){
 				// get the new filenames from the subdirectory
-				let newFiles = fs.readdirSync("../data/" + filenames[i]);
+				let newFiles = fs.readdirSync("./data/" + filenames[i]);
 				
 				// prepend the subdirectory path to each filename
 				newFiles.forEach(function(part, index, arr){
@@ -44,7 +44,7 @@ module.exports = {
 			}
 			
 			// remove any files that don't have the .json extension
-			if(filenames[i] && fs.lstatSync("../data/" + filenames[i]).isFile()){
+			if(filenames[i] && fs.lstatSync("./data/" + filenames[i]).isFile()){
 				if(filenames[i].split('.').pop() != "json"){
 					delete filenames[i]; // set the non-json element to undefined
 				}else{
@@ -62,7 +62,7 @@ module.exports = {
 
 				try{
 					// read the file, and parse it into a JSON object
-					var data = JSON.parse(fs.readFileSync('../data/' + file, { encoding: 'utf8' }));
+					var data = JSON.parse(fs.readFileSync('./data/' + file, { encoding: 'utf8' }));
 				} catch(err) {
 					// something went wrong
 					console.log(err);
@@ -75,7 +75,7 @@ module.exports = {
 		
 		// get a set of all stock symbols
 		var stock_symbols = new Set();
-		fs.readFileSync('../data/stock_symbols.txt', 'utf-8').split(/\r?\n/).forEach(function(line) {
+		fs.readFileSync('./data/stock_symbols.txt', 'utf-8').split(/\r?\n/).forEach(function(line) {
 			if(line != ""){
 				stock_symbols.add(line);
 			}
