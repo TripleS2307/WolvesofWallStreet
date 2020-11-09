@@ -1,5 +1,5 @@
 # WolvesofWallStreet
-WolvesofWallStreet is a web application that would help people decide if they want to invest in a particular stock or company by seeing the general sentiment across multiple articles related to stock.
+WolvesofWallStreet is a web application that would help people decide if they want to invest in a particular stock or company by seeing the general sentiment of stocks across multiple articles related to a query.
 
 Before downloading the project, make sure you have the latest version of [Node.js](https://nodejs.org/en/download/) installed on your machine. 
 
