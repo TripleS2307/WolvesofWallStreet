@@ -15,10 +15,10 @@ module.exports = {
 		var B_title = 0.75;
 		var B_body = 0.75;
 		
-		var W_title = 1;
+		var W_title = 5;
 		var W_body = 1;
 		
-		var K1 = 2.0;
+		var K1 = 3.0;
 		
 		var stock_multiplier = 5.0; // stock symbol term weight is multiplied by this value
 		
@@ -91,9 +91,9 @@ module.exports = {
 			// loop through each word and add the document to the postings list for that word
 			for(j in titleWords){
 				if(postings.hasOwnProperty(titleWords[j])){
-					postings[titleWords[j]].add(j);
+					postings[titleWords[j]].add(i);
 				}else{
-					postings[titleWords[j]] = new Set([j]);
+					postings[titleWords[j]] = new Set([i]);
 				}
 			}
 			
@@ -112,9 +112,9 @@ module.exports = {
 			// loop through each word and add the document to the postings list for that word
 			for(j in bodyWords){
 				if(postings.hasOwnProperty(bodyWords[j])){
-					postings[bodyWords[j]].add(j);
+					postings[bodyWords[j]].add(i);
 				}else{
-					postings[bodyWords[j]] = new Set([j]);
+					postings[bodyWords[j]] = new Set([i]);
 				}
 			}
 			
@@ -189,7 +189,7 @@ module.exports = {
 				
 				let idf = Math.log(fileCount / postings[term].size);
 				if(idf == 0){
-					console.log("everyone has: " + term);
+					//console.log("everyone has: " + term);
 				}
 				
 				// if the term is a stock symbol then multiply by the stock multiplier
