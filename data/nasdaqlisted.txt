@@ -1890,6 +1890,7 @@ JG|Aurora Mobile Limited - American Depositary Shares|G|N|N|100|N|N
 JJSF|J & J Snack Foods Corp. - Common Stock|Q|N|N|100|N|N
 JKHY|Jack Henry & Associates, Inc. - Common Stock|Q|N|N|100|N|N
 JKI|iShares Morningstar Mid-Cap ETF|G|N|N|100|Y|N
+JPM|JP Morgan Chase & Co. Common Stock|N|JPM|N|100|N|JPM
 JMPNL|JMP Group LLC - 7.25% Senior Notes due 2027|G|N|N|100|N|N
 JMPNZ|JMP Group LLC - 6.875% Senior Notes due 2029|G|N|N|100|N|N
 JNCE|Jounce Therapeutics, Inc. - Common Stock|Q|N|N|100|N|N
@@ -2377,6 +2378,7 @@ NICE|NICE Ltd - American Depositary Shares each representing one Ordinary Share|
 NICK|Nicholas Financial, Inc. - Common Stock|Q|N|N|100|N|N
 NIU|Niu Technologies - American Depositary Shares|G|N|N|100|N|N
 NK|NantKwest, Inc. - Common Stock|Q|N|N|100|N|N
+NKE|Nike, Inc. Common Stock|N|NKE|N|100|N|NKE
 NKLA|Nikola Corporation - Common Stock|Q|N|N|100|N|N
 NKSH|National Bankshares, Inc. - Common Stock|S|N|N|100|N|N
 NKTR|Nektar Therapeutics - Common Stock|Q|N|N|100|N|N
