@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Star from './star';
 
 function App() {
 	const queryString = require('query-string');
@@ -39,7 +40,7 @@ function App() {
 						<div id="header-search-bar"><form onSubmit={handleQuery}><input type="text" name="s" value={query} onChange={e => setQuery(e.target.value)} /></form></div>
 						</div><br /><br /><div id="stock-box">
 					 {results.stocks.map((stock) =>
-						<div class={(stock.sentiment > 0) ? "stock-good" : "stock-bad"}><a href={"https://finance.yahoo.com/quote/" + stock.symbol} target="_blank">{stock.symbol}</a> {(stock.sentiment > 0) ? "good" : "bad"}</div>
+						<div class={(stock.sentiment > 0) ? "stock-good" : "stock-bad"}><a href={"https://finance.yahoo.com/quote/" + stock.symbol} target="_blank">{stock.symbol}</a> <Star rating = {stock.sentiment}/></div>
 					 )}
 					 </div><div class="search-results"><div class="search-results-header">Search Results</div>
 					 {results.results.map((result) =>

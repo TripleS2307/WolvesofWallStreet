@@ -4,11 +4,11 @@
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
-	"start": "node --max_old_space_size=4096 server.js",
-	"server": "nodemon server.js",
-	"client": "npm start --prefix client",
-	"dev": "concurrently \"npm run server\" \"npm run client\"",
-	"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "start": "node --max_old_space_size=4096 server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "client": "0.0.1",
@@ -22,6 +22,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "nodemon": "~2.0.6",
+    "react-icons": "^3.11.0",
     "sentiment": "^5.0.2"
   }
 }
