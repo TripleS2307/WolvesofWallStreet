@@ -88,13 +88,11 @@ body{
 	border-radius: 20px;
 }
 #stock-box div{
-	width: 200px;
+	width: auto;
 	font-weight: bold;
 	border-radius: 20px;
 	padding: 2px 2px 2px 8px;
 	margin: 2px;
-	background: rgba(255,255,255,0.4);
-	box-shadow: inset 2px 2px 0px 2px rgba(0, 0, 0, 0.1);
 }
 #stock-box .stock-good{
 	background: rgba(0,255,0,0.4);
