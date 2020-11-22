@@ -21,7 +21,7 @@ function Star(props) {
             return <FaDollarSign size={25} color={(makeRating(props.rating) > 2) ? "green" : "red"}/>
           })}
         {[...Array(5-makeRating(props.rating))].map(star => {
-            return <FaDollarSign size={25} color="white" style={{opacity:0.5}}/>
+            return <FaDollarSign size={25} color="white" style={{opacity:0.4}}/>
           })}
         </div>
     );
